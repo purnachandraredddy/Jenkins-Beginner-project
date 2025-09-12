@@ -15,7 +15,7 @@ pipeline {
             steps {
                 sh '''
                     docker system prune -f || true
-                    docker build --no-cache -t ${IMAGE_NAME}:${TAG} .
+                    docker build --no-cache --pull -t ${IMAGE_NAME}:${TAG} . || docker build -t ${IMAGE_NAME}:${TAG} .
                 '''
             }
         }
