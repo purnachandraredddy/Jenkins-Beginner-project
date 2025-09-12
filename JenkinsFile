@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    // SimpleLife App CI/CD Pipeline 
+    // SimpleLife App CI/CD Pipeline - Auto Trigger Test 
     environment {
         IMAGE_NAME = "purnachandrared/simplelife-app"
         TAG        = "${env.BUILD_NUMBER}"
