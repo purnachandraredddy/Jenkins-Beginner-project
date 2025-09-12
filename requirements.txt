@@ -1,0 +1,10 @@
+# SimpleLife App Requirements
+# For serving the static HTML/CSS/JS app
+
+# Web server for serving static files
+flask==3.0.0
+gunicorn==21.2.0
+
+# Optional: For future enhancements
+# requests==2.31.0  # For API calls to real event services
+# python-dotenv==1.0.0  # For environment variables

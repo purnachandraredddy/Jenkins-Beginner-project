@@ -1,0 +1,309 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: #f8fafc;
+    color: #1e293b;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 20px 0;
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #0f172a;
+    margin-bottom: 8px;
+}
+
+.header p {
+    color: #64748b;
+    font-size: 1.1rem;
+}
+
+/* Sections */
+section {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+section h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #0f172a;
+}
+
+/* Goals Section */
+.goal-input {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.goal-input input {
+    flex: 1;
+    padding: 12px 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+.goal-input input:focus {
+    outline: none;
+    border-color: #3b82f6;
+}
+
+.goal-input button {
+    padding: 12px 24px;
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.goal-input button:hover {
+    background-color: #2563eb;
+}
+
+.goals-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.goal-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background-color: #f8fafc;
+    border-radius: 8px;
+    border-left: 4px solid #3b82f6;
+    cursor: move;
+    transition: all 0.2s;
+}
+
+.goal-item:hover {
+    background-color: #f1f5f9;
+    transform: translateX(4px);
+}
+
+.goal-item.completed {
+    opacity: 0.6;
+    text-decoration: line-through;
+    border-left-color: #10b981;
+}
+
+.goal-checkbox {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.goal-text {
+    flex: 1;
+}
+
+.goal-delete {
+    background: none;
+    border: none;
+    color: #ef4444;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.goal-delete:hover {
+    background-color: #fef2f2;
+}
+
+/* Break Section */
+.break-suggestions {
+    margin-bottom: 20px;
+}
+
+.break-suggestion {
+    padding: 16px;
+    background-color: #f0f9ff;
+    border-radius: 8px;
+    border-left: 4px solid #0ea5e9;
+    margin-bottom: 12px;
+}
+
+.break-suggestion h3 {
+    color: #0369a1;
+    margin-bottom: 8px;
+}
+
+.break-suggestion p {
+    color: #0c4a6e;
+}
+
+.break-btn {
+    width: 100%;
+    padding: 14px 24px;
+    background-color: #0ea5e9;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.break-btn:hover {
+    background-color: #0284c7;
+}
+
+/* Events Section */
+.events-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.event-item {
+    padding: 16px;
+    background-color: #fefce8;
+    border-radius: 8px;
+    border-left: 4px solid #eab308;
+}
+
+.event-item h3 {
+    color: #a16207;
+    margin-bottom: 8px;
+}
+
+.event-item p {
+    color: #713f12;
+    margin-bottom: 4px;
+}
+
+.loading {
+    text-align: center;
+    color: #64748b;
+    font-style: italic;
+}
+
+/* Preferences Section */
+.preferences-container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.preference-group h3 {
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+    color: #374151;
+}
+
+.activity-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.activity-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background-color: #dbeafe;
+    color: #1e40af;
+    border-radius: 20px;
+    font-size: 0.9rem;
+}
+
+.activity-tag .remove {
+    background: none;
+    border: none;
+    color: #1e40af;
+    cursor: pointer;
+    padding: 2px;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.activity-tag .remove:hover {
+    background-color: rgba(30, 64, 175, 0.1);
+}
+
+.preference-group input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 1rem;
+    margin-bottom: 12px;
+}
+
+.preference-group input:focus {
+    outline: none;
+    border-color: #3b82f6;
+}
+
+.preference-group button {
+    padding: 12px 24px;
+    background-color: #10b981;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.preference-group button:hover {
+    background-color: #059669;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 16px;
+    }
+    
+    .header h1 {
+        font-size: 2rem;
+    }
+    
+    .goal-input {
+        flex-direction: column;
+    }
+    
+    .preference-group input,
+    .preference-group button {
+        width: 100%;
+    }
+}

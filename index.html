@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SimpleLife - Productivity & Lifestyle</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>SimpleLife</h1>
+            <p>Your simple productivity companion</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Goals Section -->
+            <section class="goals-section">
+                <h2>Today's Goals</h2>
+                <div class="goals-container">
+                    <div class="goal-input">
+                        <input type="text" id="goalInput" placeholder="Add a new goal..." />
+                        <button id="addGoalBtn">Add</button>
+                    </div>
+                    <div class="goals-list" id="goalsList">
+                        <!-- Goals will be added here dynamically -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Break Suggestions -->
+            <section class="break-section">
+                <h2>Take a Break</h2>
+                <div class="break-suggestions" id="breakSuggestions">
+                    <!-- Break suggestions will be populated here -->
+                </div>
+                <button id="suggestBreakBtn" class="break-btn">Suggest Break Activity</button>
+            </section>
+
+            <!-- Local Events -->
+            <section class="events-section">
+                <h2>Local Events</h2>
+                <div class="events-container" id="eventsContainer">
+                    <div class="loading">Finding local events...</div>
+                </div>
+            </section>
+
+            <!-- User Preferences -->
+            <section class="preferences-section">
+                <h2>Your Preferences</h2>
+                <div class="preferences-container">
+                    <div class="preference-group">
+                        <h3>Break Activities You Enjoy:</h3>
+                        <div class="activity-tags" id="activityTags">
+                            <!-- Activity tags will be populated here -->
+                        </div>
+                        <input type="text" id="customActivity" placeholder="Add custom activity..." />
+                        <button id="addActivityBtn">Add Activity</button>
+                    </div>
+                    
+                    <div class="preference-group">
+                        <h3>Location:</h3>
+                        <input type="text" id="locationInput" placeholder="Enter your city..." />
+                        <button id="saveLocationBtn">Save Location</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
