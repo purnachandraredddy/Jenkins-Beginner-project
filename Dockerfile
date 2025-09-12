@@ -1,17 +1,18 @@
-FROM python:3.11-slim 
+FROM python:3.11-slim
 
 WORKDIR /app
 
+# Copy requirements first for better caching
 COPY requirements.txt .
 
+# Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-FROM builder AS final
-
-WORKDIR /app
-
+# Copy app files
 COPY . .
- 
+
+# Expose port
 EXPOSE 5000
 
+# Run the app
 CMD ["python", "app.py"]
