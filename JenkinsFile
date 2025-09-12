@@ -1,5 +1,6 @@
 pipeline {
-    agent any 
+    agent any
+    // SimpleLife App CI/CD Pipeline 
     environment {
         IMAGE_NAME = "purnachandrared/simplelife-app"
         TAG        = "${env.BUILD_NUMBER}"
