@@ -1,44 +1,46 @@
 pipeline {
-    agent any
-    // SimpleLife App CI/CD Pipeline - Auto Trigger Test 
-    environment {
-        IMAGE_NAME = "purnachandrared/simplelife-app"
-        TAG        = "${env.BUILD_NUMBER}"
+  agent any
+  environment {
+    IMAGE_NAME   = "purnachandrared/simplelife-app"
+    TAG          = "${env.BUILD_NUMBER}"
+    // Ensure Jenkins sees brew-installed docker; safe to append
+    PATH         = "${env.PATH}:/opt/homebrew/bin:/usr/local/bin"
+    // Keep Docker creds local to this workspace; avoids osxkeychain helper
+    DOCKER_CONFIG = "${env.WORKSPACE}/.docker"
+  }
+  stages {
+    stage('Checkout') {
+      steps { checkout scm }
     }
-    stages {
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
-        stage('Build') {
-            steps {
-                script {
-                    // Login to Docker Hub using Jenkins credentials
-                    docker.withRegistry('https://index.docker.io/v1/', 'docker-cred') {
-                        sh '''
-                            # Clean up Docker system
-                            docker system prune -f || true
-                            
-                            # Build the image
-                            docker build -t ${IMAGE_NAME}:${TAG} .
-                        '''
-                    }
-                }
-            }
-        }
-        stage('push image') {
-            steps {
-                withDockerRegistry([credentialsId: 'docker-cred', url: 'https://index.docker.io/v1/']) {
-                    sh 'docker push ${IMAGE_NAME}:${TAG}'
-                }
-            }
-        }
+
+    stage('Build') {
+      steps {
+        sh '''
+          docker --version
+          docker system prune -f || true
+          docker build -t ${IMAGE_NAME}:${TAG} -t ${IMAGE_NAME}:latest .
+        '''
+      }
     }
-    post {
-        always {
-            sh 'docker logout || true'
+
+    stage('Login & Push') {
+      steps {
+        withCredentials([usernamePassword(credentialsId: 'docker-cred', usernameVariable: 'U', passwordVariable: 'P')]) {
+          sh '''
+            mkdir -p "$DOCKER_CONFIG"
+            echo "$P" | docker login -u "$U" --password-stdin
+            docker push ${IMAGE_NAME}:${TAG}
+            docker push ${IMAGE_NAME}:latest
+          '''
         }
+      }
     }
-    
+  }
+  post {
+    always {
+      // logout + remove temp auth so no keychain helper is needed
+      sh 'docker logout || true'
+      sh 'rm -rf "$DOCKER_CONFIG" || true'
+    }
+  }
 }
