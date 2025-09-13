@@ -1,21 +1,19 @@
 pipeline {
-  options { disableConcurrentBuilds() }   // stop @2 races
+  agent any
+
+  options {
+    disableConcurrentBuilds()   // avoid workspace @2/@tmp races
+  }
 
   environment {
-    // keep system dirs, then your brew dirs, then whatever Jenkins had
-    PATH = "/bin:/usr/bin:/usr/local/bin:/opt/homebrew/bin:${env.PATH}"
-  }  
-  
-  agent any
-  
-  environment {
-    IMAGE_NAME   = "purnachandrared/simplelife-app"
-    TAG          = "${env.BUILD_NUMBER}"
-    // Ensure Jenkins sees brew-installed docker; safe to append
-    PATH         = "${env.PATH}:/opt/homebrew/bin:/usr/local/bin"
-    // Keep Docker creds local to this workspace; avoids osxkeychain helper
+    IMAGE_NAME    = "purnachandrared/simplelife-app"
+    TAG           = "${env.BUILD_NUMBER}"
+    // keep system dirs first, then brew dirs, then existing PATH
+    PATH          = "/bin:/usr/bin:/usr/local/bin:/opt/homebrew/bin:${env.PATH}"
+    // isolate Docker auth in workspace (avoids macOS keychain helper)
     DOCKER_CONFIG = "${env.WORKSPACE}/.docker"
   }
+
   stages {
     stage('Checkout') {
       steps { checkout scm }
@@ -43,10 +41,19 @@ pipeline {
         }
       }
     }
+
+    stage('Deploy (local)') {
+      steps {
+        sh '''
+          docker rm -f my-site || true
+          docker run -d --name my-site -p 80:80 ${IMAGE_NAME}:${TAG}
+        '''
+      }
+    }
   }
+
   post {
     always {
-      // logout + remove temp auth so no keychain helper is needed
       sh 'docker logout || true'
       sh 'rm -rf "$DOCKER_CONFIG" || true'
     }
