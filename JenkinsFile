@@ -1,5 +1,13 @@
 pipeline {
+  options { disableConcurrentBuilds() }   // stop @2 races
+
+  environment {
+    // keep system dirs, then your brew dirs, then whatever Jenkins had
+    PATH = "/bin:/usr/bin:/usr/local/bin:/opt/homebrew/bin:${env.PATH}"
+  }  
+  
   agent any
+  
   environment {
     IMAGE_NAME   = "purnachandrared/simplelife-app"
     TAG          = "${env.BUILD_NUMBER}"
